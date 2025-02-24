@@ -2,6 +2,7 @@ import frame from "../assets/signFrame.png";
 import Icon from "../components/Icon";
 import Title from "../components/Title";
 import styles from "../styles/Category.module.css";
+import { signUp } from "../services";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,7 @@ export default function Category() {
         "✈️ \u00A0\u00A0Travel & Tourism",
     ]
 
-    const handleContinue = (e) => {
+    const handleContinue = async (e) => {
         try {
             e.preventDefault();
             if(!userName) {
@@ -34,9 +35,13 @@ export default function Category() {
             else if(!selectedCategory) {
                 toast.error("Please select a category");
             }
-            else {
+            const response = await signUp({ data: userName });
+            if(response.ok) {
                 toast.success("Account created successfully");
-                navigate('/links')
+                navigate('/links');
+            }
+            else {
+                toast.error("something went wrong")
             }
         } catch (error) {
             console.log(error);

@@ -1,6 +1,7 @@
 import frame from "../assets/signFrame.png";
 import Icon from "../components/Icon";
 import Title from "../components/Title";
+import { signUp } from "../services";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from 'react-hot-toast'
@@ -26,7 +27,15 @@ export default function SignUp() {
     const handleSignUp = async (e) => {
         try {
             e.preventDefault();
-            navigate('/select-category');
+            const response = await signUp({ data: formData });
+            if(response.ok) {
+                toast.success("Account created succesfully");
+                navigate('/select-category');
+            }
+            else {
+                toast.error("something went wrong");
+            }
+            
         } catch (error) {
             console.log(error);
             toast.error("Something went wrong!");
