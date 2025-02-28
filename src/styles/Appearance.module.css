@@ -1,0 +1,30 @@
+.appearance {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.main {
+    background-color: #D9D9D9;
+    width: 85vw;
+    height: 100vh;
+}
+
+.linksBorder {
+    border-bottom-right-radius: 1rem;
+    background-color: white;
+}
+
+.analyticsBorder {
+    border-top-right-radius: 1rem;
+    background-color: white;
+}
+
+.navBG {
+    background-color: white;
+}
+
+.appearanceColor {
+    color: #28A263;
+    background-color: #D9D9D9;
+}

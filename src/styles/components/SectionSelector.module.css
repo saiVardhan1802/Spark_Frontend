@@ -1,0 +1,29 @@
+.addBar {
+    display: flex;
+    background-color: #F3F3F1;
+    width: 44%;
+    height: 4vh;
+    margin: 1%;
+    border-radius: 2rem;
+    font-family: Inter;
+}
+
+.addBar div {
+    display: flex;
+    gap: 0.5vw;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+    font-family: Inter;
+}
+
+/* SELECTED NOT SELECTED */
+
+.notSelected {
+    width: 45%;
+}
+
+.selected {
+    background-color: #28A263;
+    width: 55%;
+}

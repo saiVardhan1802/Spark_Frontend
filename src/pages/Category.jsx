@@ -37,7 +37,7 @@ export default function Category() {
             }
             const response = await signUp({ data: userName });
             if(response.ok) {
-                toast.success("Account created successfully");
+                toast.success("Username added successfully");
                 navigate('/links');
             }
             else {

@@ -22,13 +22,36 @@ export default function SignUp() {
         terms: false
     })
     
-    const [error, setError] = useState(false);
+    const [error, setError] = useState({
+        firstName: false,
+        email: "",
+        password: [],
+        confirmPassword: false,
+        terms: false,
+    });
 
     const handleSignUp = async (e) => {
         try {
             e.preventDefault();
+            const newErrors = {
+                firstName: !formData.firstName,
+                email: validateEmail(formData.email),
+                password: validatePassword(formData.password),
+                confirmPassword: formData.password !== formData.confirmPassword ? "Passwords do not match" : "",
+                terms: !formData.terms
+            };
+
+            setError(newErrors);
+
+            if (error.firstName || error.email || (Array.isArray(error.password) && error.password.length > 0) || error.terms) {
+                return
+            }
+          
             const response = await signUp({ data: formData });
             if(response.ok) {
+                const data = await response.json();
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("userId", data._id);
                 toast.success("Account created succesfully");
                 navigate('/select-category');
             }
@@ -122,7 +145,7 @@ export default function SignUp() {
                                 fontSize: '1rem',
                                 outline: 'none',
                             }} type="text" value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})}/> 
-                            {error && <p style={{
+                            {error.firstName && <p style={{
                                 color: 'red',
                                 fontSize: '0.75rem',
                                 fontFamily: 'Poppins'
@@ -142,11 +165,7 @@ export default function SignUp() {
                                 fontSize: '1rem',
                                 outline: 'none',
                             }} type="text" value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})}/> 
-                            {error && <p style={{
-                                color: 'red',
-                                fontSize: '0.75rem',
-                                fontFamily: 'Poppins'
-                            }}>First name required</p>}
+                            
                         </div>
                         <div>
                             <p style={{
@@ -162,18 +181,18 @@ export default function SignUp() {
                                 fontSize: '1rem',
                                 outline: 'none',
                             }} type="text" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}/> 
-                            {error && <p style={{
+                            {error.email && <p style={{
                                 color: 'red',
                                 fontSize: '0.75rem',
                                 fontFamily: 'Poppins'
-                            }}>First name required</p>}
+                            }}>{error.email}</p>}
                         </div>
                         <div>
                             <p style={{
                                 fontFamily: 'Poppins',
                                 color: '#666666'
                             }}>Password</p>
-                            <input style={{
+                            <input onChange={(e) => setFormData({...formData, password: e.target.value})} style={{
                                 width: '40%',
                                 height: '4vh',
                                 paddingLeft: '0.1%',
@@ -182,11 +201,13 @@ export default function SignUp() {
                                 fontSize: '1rem',
                                 outline: 'none',
                             }} type="password" /> 
-                            {error && <p style={{
-                                color: 'red',
-                                fontSize: '0.75rem',
-                                fontFamily: 'Poppins'
-                            }}>First name required</p>}
+                            {error.password.length > 0 && error.password.map((msg, index) => (
+                                <p key={index} style={{
+                                    color: 'red',
+                                    fontSize: '0.75rem',
+                                    fontFamily: 'Poppins'
+                                }}>{msg}</p>
+                            ))}
                         </div>
                         <div>
                             <p style={{
@@ -202,11 +223,11 @@ export default function SignUp() {
                                 fontSize: '1rem',
                                 outline: 'none',
                             }} type="password" value={formData.confirmPassword} onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}/>
-                            {error && <p style={{
+                            {error.confirmPassword && <p style={{
                                 color: 'red',
                                 fontSize: '0.75rem',
                                 fontFamily: 'Poppins'
-                            }}>First name required</p>}
+                            }}>{error.confirmPassword}</p>}
                         </div>
                         <div style={{
                             display: "flex",
@@ -226,11 +247,11 @@ export default function SignUp() {
                             }} htmlFor="terms">By creating an account, I agree to our <span style={{textDecoration: 'underline'}}>terms of use</span> and <span style={{textDecoration: 'underline'}}>privacy policy</span>
                             </label>
                         </div>
-                        {error && <p style={{
+                        {error.terms && <p style={{
                                 color: 'red',
                                 fontSize: '0.75rem',
                                 fontFamily: 'Poppins'
-                            }}>First name required</p>}
+                            }}>Accept terms and conditions</p>}
                         <button type="submit" onClick={handleSignUp} style={{
                             width: '40%',
                             height: '4vh',
@@ -259,3 +280,39 @@ export default function SignUp() {
         </div>
     )
 }
+
+function validatePassword(password) {
+    if (!password) {
+        return ["Password cannot be empty."]; // Handle null or undefined case
+    }
+
+    const errors = [];
+
+    if (password.length < 8) {
+        errors.push("Password must be at least 8 characters long.");
+    }
+    if (!/[A-Z]/.test(password)) {
+        errors.push("Password must contain at least one uppercase letter.");
+    }
+    if (!/[a-z]/.test(password)) {
+        errors.push("Password must contain at least one lowercase letter.");
+    }
+    if (!/\d/.test(password)) {
+        errors.push("Password must contain at least one number.");
+    }
+    if (!/[@$!%*?&]/.test(password)) {
+        errors.push("Password must contain at least one special character (@$!%*?&).");
+    }
+
+    console.log("Errors found:", errors);
+
+    return errors.length > 0 ? errors : [];
+}
+
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return "Invalid email";
+    return null;
+}
+
+console.log(validatePassword("Hogrider@7"))
