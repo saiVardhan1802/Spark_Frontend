@@ -2,8 +2,42 @@ import frame from "../assets/signFrame.png";
 import Icon from "../components/Icon";
 import Title from "../components/Title";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { login } from "../services";
+
 export default function SignIn() {
     const navigate = useNavigate();
+
+    const token = localStorage.getItem("token")
+    console.log(token)
+    if (token) {
+        navigate("/links")
+    }
+
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    })
+
+    async function HandleClick(e) {
+        try {
+            e.preventDefault();
+            const response = await login({ data: formData });
+            if (response.ok) {
+                toast.success("Login successful")
+                const data = await response.json()
+                localStorage.setItem("token", data.token)
+                navigate("/links")
+            }
+            else {
+                toast.error("response not okay");
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Something went wrong");
+        } 
+    }
 
     return (
         <div style={{
@@ -41,7 +75,7 @@ export default function SignIn() {
         
                         <div style={{
                             height: '60vh',
-                            width: '50vh',
+                            width: '40vw',
                             position: 'relative',
                             left: '15%',
                             top: '17%',
@@ -51,11 +85,13 @@ export default function SignIn() {
                                 flexDirection: 'column',
                                 height: '100%',
                                 width: '100%',
-                                gap: '8%'
+                                gap: '8%',
                             }}>
-                                <div >
+                                <div style={{
+                                    width: '100%'
+                                }}>
                                     <input style={{
-                                        width: '150%',
+                                        width: '100%',
                                         height: '200%',
                                         paddingLeft: '3%',
                                         borderRadius: '0.3rem',
@@ -65,11 +101,16 @@ export default function SignIn() {
                                         background: '#EFF0EC',
                                         fontFamily: 'Poppins'
                                     }} type="text"
-                                    placeholder="Email" /> 
+                                    placeholder="Email"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                    /> 
                                 </div>
-                                <div>
+                                <div style={{
+                                    width: '100%'
+                                }}>
                                     <input style={{
-                                        width: '150%',
+                                        width: '100%',
                                         height: '200%',
                                         paddingLeft: '3%',
                                         paddingRight: '20%',
@@ -80,11 +121,14 @@ export default function SignIn() {
                                         background: '#EFF0EC',
                                         fontFamily: 'Poppins'
                                     }} type="password"
-                                    placeholder="Password" /> 
+                                    placeholder="Password" 
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                    /> 
                                 </div>
                                 
-                                <button style={{
-                                    width: '150%',
+                                <button type="submit" onClick={HandleClick} style={{
+                                    width: '100%',
                                     height: '9%',
                                     paddingLeft: '3%',
                                     marginTop: '10%',
@@ -103,7 +147,6 @@ export default function SignIn() {
                                     textAlign: 'center',
                                     color: '#28A263',
                                     fontSize: '0.9rem',
-                                    marginLeft: '51%'
                                 }}>
                                     Forgot password?
                                 </p>
@@ -111,7 +154,6 @@ export default function SignIn() {
                                     fontFamily: 'Poppins',
                                     textAlign: 'center',
                                     fontSize: '0.8rem',
-                                    marginLeft: '51%',
                                 }}>
                                     Don&apos;t have an account? <span onClick={() => navigate('/signup')} style={{
                                         color: '#28A263',

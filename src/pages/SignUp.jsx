@@ -13,6 +13,13 @@ import "@fontsource/poppins/700.css"; // Bold
 
 export default function SignUp() {
     const navigate = useNavigate();
+
+    const token = localStorage.getItem("token")
+    console.log(token)
+    if (token) {
+        navigate("/links")
+    }
+    
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",

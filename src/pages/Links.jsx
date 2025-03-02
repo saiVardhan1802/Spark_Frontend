@@ -15,6 +15,7 @@ import SectionSelector from "../components/SectionSelector";
 import MobileView from "../components/MobileView";
 import EnterUrlField from "../components/EnterUrlField";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function Links() {
     const [links, setLinks] = useState([
@@ -35,7 +36,15 @@ export default function Links() {
         bio: "",
     });
 
-    function handleSubmit(e) {
+    useEffect(() => {
+        localStorage.setItem("formData", JSON.stringify(formData));
+    }, [formData]);
+    
+    useEffect(() => {
+        localStorage.setItem("links", JSON.stringify(links));
+    }, [links]);
+
+    function HandleSubmit(e) {
         try {
             e.preventDefault();
             if(!formData.profileTitle) {
@@ -121,7 +130,7 @@ export default function Links() {
                             </div>
                         </div>
                     </div>
-                    <button className={styles.submitButton} type="submit" onClick={handleSubmit}>
+                    <button className={styles.submitButton} type="submit" onClick={HandleSubmit}>
                         <p>Save</p>
                     </button>
                     </form>
