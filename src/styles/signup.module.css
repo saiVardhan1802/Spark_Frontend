@@ -1,0 +1,114 @@
+.signUpContainer {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    font-family: Poppins;
+}
+
+.formWrapper {
+    width: 63vw;
+    height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 2%;
+    top: 4%;
+}
+
+.title {
+    font-size: 1.5rem;
+}
+
+.signUpText {
+    font-family: "Poppins", sans-serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    top: 10%;
+}
+
+.formSection {
+    position: relative;
+    top: 14%;
+    left: 30%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.accountOptions {
+    display: flex;
+    align-items: center;
+    gap: 15%;
+    margin-bottom: 1.8%;
+}
+
+.createAccountText {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.signInLink {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: #28A263;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.input {
+    width: 40%;
+    height: 4vh;
+    border-radius: 0.3rem;
+    border: 0.1rem solid #ccc;
+}
+
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 3%;
+    width: 30%;
+}
+
+.checkbox {
+    color: #525252;
+}
+
+.checkboxLabel {
+    margin-top: 5%;
+    font-family: Poppins;
+    font-size: 0.8rem;
+}
+
+.submitButton {
+    background-color: #AAAAAA;
+    color: #FFFFFF;
+    width: 40%;
+    height: 4vh;
+    margin-top: 1.5vh;
+    padding-left: 0.1%;
+    border-radius: 2rem;
+    font-size: 1rem;
+    border: none;
+    font-family: Poppins;
+}
+
+.footer {
+    position: absolute;
+    bottom: 5%;
+    left: 13%;
+    font-family: Inter, sans-serif;
+}
+
+.image {
+    width: 37vw;
+    height: 100vh,
+}

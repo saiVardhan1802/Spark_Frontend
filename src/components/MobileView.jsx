@@ -1,6 +1,6 @@
 import styles from "../styles/components/MobileView.module.css"
 
-export default function MobileView({ formData, setSelectedLink, selectedLink, links, shareIcon, darkSpark }) {
+export default function MobileView({ formData, setSelectedLink, selectedLink, links, shareIcon, darkSpark, tree }) {
     return (
         <div className={styles.mobile}>
             <div className={styles.header}>
@@ -21,9 +21,9 @@ export default function MobileView({ formData, setSelectedLink, selectedLink, li
                         <p>Shop</p>
                     </div>
                 </div>
-                <div className={styles.tree}>
+                <div className={tree}>
                     {links.map((link, index) => (
-                        <div className={styles.treeBox} key={index}
+                        <div key={index}
                         onClick={() => window.open(link.url, "_blank")}
                         >
                             <img src={shareIcon} />

@@ -1,6 +1,6 @@
 export default function Title(props) {
     return (
-        <p style={{
+        <p className={props.className} style={{
             fontFamily: 'Plus Jakarta Sans',
             fontWeight: 'bold',
             color: 'black',

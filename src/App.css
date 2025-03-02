@@ -7,3 +7,100 @@
   /* background-color: #494747; */
 }
 
+.stack {
+  position: relative;
+  top: 15%;
+  /* background-color: yellow; */
+  overflow-y: auto;
+  height: 20vh;
+  width: 100%;
+  /* display: flex;
+  flex-direction: column;
+  gap: 1vh; */
+}
+
+.stack div {
+  margin: 0 auto;
+  display: flex;
+  background-color: #C9C9C9;
+  width: 80%;
+  height: 8vh;
+  margin-bottom: 1vh;
+  border-radius: 2rem;
+  align-items: center;
+  padding: 2%;
+  gap: 1%;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.stack img {
+  border-radius: 50%;
+  width: 3.5em;
+  height: auto;
+}
+
+.grid {
+  padding: 2% 10%;
+  position: relative;
+  top: 12%;
+  overflow-y: auto;
+  width: 100%;
+  height: 20vh;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Two equal columns */
+  gap: 0.3rem; /* Space between squares */
+  justify-content: center;
+  align-content: start; /* Ensure content starts at the top */
+}
+
+.grid div {
+  height: auto;
+  border-radius: 1.5rem;
+  border: 1px solid black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 5%;
+}
+
+.grid div img {
+  width: 50%;
+  height: auto;
+  border-radius: 50%;
+  border-radius: 2rem;
+}
+
+.carousel {
+  position: relative;
+  top: 15%;
+  /* background-color: yellow; */
+  overflow-x: auto;
+  height: 20vh;
+  width: 100%;
+  display: flex;
+  gap: 5%;
+  padding-left: 25%
+}
+
+.carousel div {
+  height: 100%;
+  width: 60%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+  border: 1px solid black;
+  border-radius: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.carousel div img {
+  width: 50%;
+  height: auto;
+  border-radius: 50%;
+}

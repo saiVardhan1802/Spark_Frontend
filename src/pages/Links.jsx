@@ -19,6 +19,9 @@ import { useEffect } from "react";
 
 export default function Links() {
     const [links, setLinks] = useState([
+        { title: "Instagram Latest Video", url: "https://www.instagram.com/" },
+        { title: "YouTube", url: "https://www.youtube.com" },
+        { title: "YouTube", url: "https://www.youtube.com" },
         { title: "Instagram", url: "https://www.instagram.com/" },
         { title: "YouTube", url: "https://www.youtube.com" },
         { title: "YouTube", url: "https://www.youtube.com" },

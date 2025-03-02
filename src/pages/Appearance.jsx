@@ -12,15 +12,18 @@ import darkSpark from "../assets/dark_spark.png";
 export default function Appearance() {
     const [profileData, setProfileData] = useState(() => {
         const savedFormData = localStorage.getItem("formData");
-        return savedFormData ? JSON.parse(savedFormData) : {};  // Default to an empty object
+        return savedFormData ? JSON.parse(savedFormData) : {}; 
     });
     
     const [links, setLinks] = useState(() => {
         const savedLinks = localStorage.getItem("links");
-        return savedLinks ? JSON.parse(savedLinks) : [];  // Default to an empty array
+        return savedLinks ? JSON.parse(savedLinks) : [];  
     });
 
     const [selectedLink, setSelectedLink] = useState(true);
+    const [layout, setLayout] = useState("carousel");
+
+    
 
     return (
         <div className={styles.appearance}>
@@ -43,6 +46,7 @@ export default function Appearance() {
                 links={links}
                 shareIcon={shareIcon}
                 darkSpark={darkSpark}
+                tree={layout}
             />
             <div className={styles.appearanceSettings}>
                 <div className={styles.layoutParent}>
@@ -50,24 +54,45 @@ export default function Appearance() {
                         Layout
                     </p>
                     <div className={styles.layout}>
-                        <div className={styles.stack}>
-                            <div className={styles.box}>
+                        <div className={styles.stackBox}
+                            onClick={() => setLayout("stack")}    
+                            >
+                            <div className={styles.box}
+                                style={{
+                                    backgroundColor: layout === "stack" ? "#F6F7F5" : "",
+                                    border: layout === "stack" ? "none" : "0.1rem solid black"
+                                }}
+                            >
                                 {[...Array(3)].map((_, index) => (
                                     <div key={index}></div>
                                 ))}
                             </div>
                             <p>Stack</p>
                         </div>
-                        <div className={styles.grid}>
-                            <div className={styles.box}>
+                        <div className={styles.gridBox}
+                            onClick={() => setLayout("grid")}
+                        >
+                            <div className={styles.box}
+                                style={{
+                                    backgroundColor: layout === "grid" ? "#F6F7F5" : "",
+                                    border: layout === "grid" ? "none" : "0.1rem solid black"
+                                }}
+                            >
                             {[...Array(4)].map((_, index) => (
                                     <div key={index}></div>
                                 ))}
                             </div>
                             <p>Grid</p>
                         </div>
-                        <div className={styles.carousel}>
-                            <div className={styles.box}>
+                        <div className={styles.carouselBox}
+                            onClick={() => setLayout("carousel")}
+                        >
+                            <div className={styles.box}
+                                style={{
+                                    backgroundColor: layout === "carousel" ? "#F6F7F5" : "",
+                                    border: layout === "carousel" ? "none" : "0.1rem solid black"
+                                }}
+                            >
                                 <div className={styles.full}></div>
                                 <div className={styles.half}></div>
                             </div>

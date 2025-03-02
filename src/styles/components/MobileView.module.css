@@ -94,16 +94,12 @@
     width: 55%;
 }
 
-.tree {
+/* .tree {
     position: relative;
     top: 15%;
-    /* background-color: yellow; */
     overflow-y: auto;
     height: 20vh;
     width: 100%;
-    /* display: flex;
-    flex-direction: column;
-    gap: 1vh; */
 }
 
 .treeBox {
@@ -125,7 +121,7 @@
     border-radius: 50%;
     width: 3.5em;
     height: auto;
-}
+} */
 
 .connect {
     background-color: #35CA7D;

@@ -65,14 +65,14 @@
     border: 0.1rem solid black;
 }
 
-.stack, .grid, .carousel {
+.stackBox, .gridBox, .carouselBox {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1vh;
 }
 
-.stack .box {
+.stackBox .box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +80,7 @@
     gap: 5%;
 }
 
-.grid .box {
+.gridBox .box {
     display: grid;
     grid-template-columns: repeat(2, 1.5rem); /* Two columns of 100px each */
     grid-template-rows: repeat(2, 1.5rem); /* Two rows of 100px each */
@@ -88,21 +88,21 @@
     justify-content: center;
 }
 
-.carousel .box {
+.carouselBox .box {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5%;
 }
 
-.stack .box div {
+.stackBox .box div {
     height: 10%;
     width: 50%;
     background-color: black;
     border-radius: 0.2rem;
 }
 
-.grid .box div {
+.gridBox .box div {
     height: 1.5rem;
     width: 1.5rem;
     background-color: black;

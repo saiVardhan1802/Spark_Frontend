@@ -9,7 +9,7 @@ import Toggle from './components/Toggle';
 import Appearance from './pages/Appearance';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
-import AppearanceSettings from './pages/Test';
+import Home from './pages/Home';
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
         <Route path='/analytics' element={<Analytics />} />
         <Route path='/settings' element={<Settings />} />
         <Route path='/toggle' element={<Toggle />} />
-        <Route path='/test' element={<AppearanceSettings />} />
+        <Route path='/' element={<Home />} />
       </Routes>
       <Toaster />
     </Router>
