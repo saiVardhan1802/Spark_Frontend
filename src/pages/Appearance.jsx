@@ -8,6 +8,8 @@ import { useState } from "react";
 import MobileView from "../components/MobileView";
 import shareIcon from "../assets/share_icon.png";
 import darkSpark from "../assets/dark_spark.png";
+import { useEffect } from "react";
+import { getUser, updateUser } from "../services";
 
 export default function Appearance() {
     const [profileData, setProfileData] = useState(() => {
@@ -23,7 +25,41 @@ export default function Appearance() {
     const [selectedLink, setSelectedLink] = useState(true);
     const [layout, setLayout] = useState("carousel");
 
+    useEffect(() => {
+        async function fetchUserData() {
+            const token = localStorage.getItem("token");
+            if (!token) return;
+
+            try {
+                const userData = await getUser(token);
+                if (userData && userData.layout) {
+                    setLayout(userData.layout);
+                }
+            } catch (error) {
+                console.error("Failed to fetch user layout:", error);
+            }
+        }
+
+        fetchUserData();
+    }, []);
+
+    const handleLayoutChange = async (event) => {
+        event.preventDefault(); // Prevent any default behavior if it's from a form
     
+        const newLayout = layout // Ensure you get the correct value
+    
+        const token = localStorage.getItem("token");
+        const updates = { layout: newLayout };
+    
+        console.log("Updating user with:", updates); // Debugging log
+    
+        try {
+            const response = await updateUser(token, updates);
+            console.log("Update successful:", response);
+        } catch (error) {
+            console.error("Failed to update layout:", error);
+        }
+    };
 
     return (
         <div className={styles.appearance}>
@@ -100,6 +136,9 @@ export default function Appearance() {
                         </div>
                     </div>
                 </div>
+                <button onClick={handleLayoutChange}>
+                    <p>Save</p>
+                </button>
             </div>
             </div>
         </div>

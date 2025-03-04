@@ -10,6 +10,7 @@ import Appearance from './pages/Appearance';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import Home from './pages/Home';
+import LinkTree from './pages/LinkTree';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/settings' element={<Settings />} />
         <Route path='/toggle' element={<Toggle />} />
         <Route path='/' element={<Home />} />
+        <Route path='/linktree/:id' element={<LinkTree />} />
       </Routes>
       <Toaster />
     </Router>

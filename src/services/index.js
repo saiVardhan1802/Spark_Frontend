@@ -22,10 +22,9 @@ export async function login({ data }) {
     return response;
 }
 
-// Function to get user data
-export const getUser = async (userId, token) => {
+export const getUser = async (token) => {
     try {
-        const response = await fetch(`${API_URL}/${userId}`, {
+        const response = await fetch(`${API_URL}/auth/user`, { 
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -42,9 +41,9 @@ export const getUser = async (userId, token) => {
 };
 
 // Function to update user data
-export const updateUser = async (userId, token, updates) => {
+export const updateUser = async (token, updates) => {
     try {
-        const response = await fetch(`${API_URL}/${userId}`, {
+        const response = await fetch(`${API_URL}/auth/user`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +60,6 @@ export const updateUser = async (userId, token, updates) => {
         throw error;
     }
 };
-
 
 // http://localhost:3000/api/auth/login
 

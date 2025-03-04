@@ -16,6 +16,7 @@ import MobileView from "../components/MobileView";
 import EnterUrlField from "../components/EnterUrlField";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { getUser, updateUser } from "../services";
 
 export default function Links() {
     const [links, setLinks] = useState([
@@ -47,9 +48,53 @@ export default function Links() {
         localStorage.setItem("links", JSON.stringify(links));
     }, [links]);
 
-    function HandleSubmit(e) {
+    useEffect(() => {
+            async function fetchUserData() {
+                const token = localStorage.getItem("token");
+                if (!token) return;
+    
+                try {
+                    const userData = await getUser(token);
+                    if (userData && userData.profileTitle) {
+                        setFormData(prevState => ({ ...prevState, profileTitle: userData.profileTitle }));
+                    }
+                    if (userData && userData.bio) {
+                        setFormData(prevState => ({ ...prevState, bio: userData.bio }));
+                    }
+                    if (userData && userData.profileImg) {
+                        setFormData(prevState => ({ ...prevState, img : userData.profileImg }));
+                    }
+                    if (userData && userData.links) {
+                        setLinks(userData.links);
+                    }
+                } catch (error) {
+                    console.error("Failed to fetch user layout:", error);
+                }
+            }
+    
+            fetchUserData();
+        }, []);
+
+    async function HandleSubmit(e) {
         try {
             e.preventDefault();
+            const newFormData = formData;
+            const newLinks = links;
+
+            const token = localStorage.getItem('token');
+            const updates = {
+                profileTitle: newFormData.profileTitle,
+                bio: newFormData.bio,
+                profileImg: newFormData.image,
+                links: newLinks
+            }
+
+            try {
+                const response = await updateUser(token, updates);
+                console.log("Update successful:", response);
+            } catch (error) {
+                console.error("Failed to update layout:", error);
+            }
             if(!formData.profileTitle) {
                 toast.error("Please enter your profile title")
             }
